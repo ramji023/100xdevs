@@ -1,0 +1,30 @@
+body {
+    background-color: #323437;
+}
+
+p {
+    position: relative;
+    letter-spacing: 2px;
+}
+
+#cursor {
+    color: yellow;
+    position: absolute;
+    width: 3px;
+    height: 2rem;
+    background-color: yellow;
+    animation: blink 0.8s infinite;
+}
+
+.spanElement {
+    font-family: "Roboto Mono", "Roboto Mono", "Vazirmatn", monospace;
+    font-size: 2rem;
+    color: #5f5f5c;
+    line-height: 1.25em;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
