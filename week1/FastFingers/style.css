@@ -1,7 +1,51 @@
 body {
     background-color: #323437;
-    margin:10px 120px;
+    margin: 20px 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 60px;
 }
+
+.nav {
+    display: flex;
+    align-items: center;
+    font-family: Lexend Deca, sans-serif;
+    letter-spacing: 2px;
+    line-height: 1.25em;
+    color: #d1d0c5;
+}
+
+#parentBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#box {
+    background-color: #171d24;
+    color: whitesmoke;
+    padding: 12px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 500px;
+}
+
+
+.boxDiv {
+    font-size: 16px;
+    font-family: "gilroy", "gilroy Fallback";
+    color: #b0b9c3;
+    cursor: pointer;
+}
+
+.boxDiv:hover {
+   color:rgb(216, 85, 85);
+}
+
 
 p {
     position: relative;
