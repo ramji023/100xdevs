@@ -1,0 +1,73 @@
+<body>
+    <div id="todos">
+
+    </div>
+    <input type="text">
+    <button onclick="addTodo()">add todo</button>
+    <script>
+
+        /*
+
+      <----------  a better approach to add todo instead of inserting raw html
+                const todosElement = document.querySelector('#todos')
+                function addTodo() {
+                    const inputValue = document.querySelector('input').value;
+                    console.log(inputValue);
+                    const newTodoElement = document.createElement('div');
+        
+                    //create button and span element
+                    const newSpanEl = document.createElement('span')
+                    const newButtonEl = document.createElement('button');
+                    // insert the content into span and button element
+                    newSpanEl.innerText = inputValue;
+                    newButtonEl.innerText = 'delete';
+                    //append both button and span element into the new div element
+                    newTodoElement.appendChild(newSpanEl)
+                    newTodoElement.appendChild(newButtonEl)
+                    // append that new div element into parent div
+                    todosElement.appendChild(newTodoElement)
+                    document.querySelector('input').value = '';
+                }
+                */
+
+
+        // a best approach based on state, component and render method
+        let todos = [];
+        function addTodo() {
+            todos.push({
+                id: todos[todos.length - 1]?.id + 1 || 1,
+                title: document.querySelector('input').value
+            })
+            render()
+        }
+        function deleteTodo(id) {
+            todos = todos.filter((todo) => todo.id !== id)
+            render();
+        }
+
+
+
+        function todoComponent(todo) {
+            const newDiv = document.createElement('div')
+            const spanEl = document.createElement('span')
+            const buttonEl = document.createElement('button')
+            buttonEl.setAttribute('onClick', `deleteTodo(${todo.id})`)
+            spanEl.innerText = todo.title
+            buttonEl.innerText = 'delete'
+            newDiv.appendChild(spanEl)
+            newDiv.appendChild(buttonEl)
+            return newDiv;
+        }
+
+        function render() {
+            const todosElement = document.querySelector('#todos');
+            todosElement.innerHTML = '';
+            document.querySelector('input').value = ''
+            todos.forEach((todo) => {
+                const appendDiv = todoComponent(todo);
+                todosElement.appendChild(appendDiv);
+            })
+        }
+        render(); // render all the todos whenever page refreshed
+    </script>
+</body>
