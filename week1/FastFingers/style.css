@@ -1,6 +1,9 @@
 body {
     background-color: #323437;
     margin: 20px 120px;
+}
+
+#first {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -43,9 +46,13 @@ body {
 }
 
 .boxDiv:hover {
-   color:rgb(216, 85, 85);
+    color: rgb(216, 85, 85);
 }
 
+.timer {
+    font-size: 50px;
+    color: rgb(216, 85, 85);
+}
 
 p {
     position: relative;

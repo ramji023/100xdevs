@@ -80,6 +80,8 @@ let index = 0;
 const checkKey = (key) => {
     console.log(key);
     if (/^[a-zA-Z0-9 ]$/.test(key)) {
+        const timer = document.querySelector('.timer').innerText;
+        startTimer(Number(timer))
         let result = (key === textContent[index].innerText) ? true : false;
         if (result && key !== ' ') {
             textContent[index].style.color = 'white'
@@ -103,3 +105,33 @@ function moveCursor() {
         textContent[index].after(cursor);
     }
 }
+
+
+// set the timer
+const timerDiv = document.querySelector('.timer');
+const selectTimerButton = document.querySelectorAll('.boxDiv');
+selectTimerButton.forEach((node) => {
+    node.addEventListener('click', () => setTimer(node.innerText))
+})
+function setTimer(timer) {
+    if (Number(timer)) {
+        console.log("timer is : ", timer)
+        document.querySelector('.timer').innerText = timer
+    }
+}
+
+// start the clock
+function startTimer(time) {
+    const timerID = setInterval(() => {
+        if (time > 0) {
+            console.log(time);
+            time = time - 1;
+            document.querySelector('.timer').innerText = time
+        } else {
+            console.log("timer is stopped")
+            clearInterval(timerID);
+        }
+    }, 1000)
+}
+
+
