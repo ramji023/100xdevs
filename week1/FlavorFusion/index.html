@@ -1,0 +1,39 @@
+<head>
+    <style>
+        ul {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            display: flex;
+            gap: 1rem;
+        }
+
+        ul li {
+            color: red;
+            list-style-type: none;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .tooltip {
+            display: none;
+            color: black;
+            background-color: gray;
+            position: absolute;
+        }
+
+        ul li:hover .tooltip {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div>
+        <h1>3D</h1>
+        <h1>Rotate</h1>
+    </div> -->
+    <ul>
+        <li>about <span class="tooltip">about me</span></li>
+        <li>contect us</li>
+        <li>Home</li>
+    </ul>
+</body>
