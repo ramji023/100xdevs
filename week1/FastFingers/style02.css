@@ -1,0 +1,34 @@
+#secondBox {
+    font-family: "Roboto Mono", "Roboto Mono", "Vazirmatn", monospace;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+#result {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+}
+
+.textStyle {
+    font-size: 2rem;
+    line-height: 1.5rem;
+    color: #646669;
+}
+
+.numberStyle {
+    font-size: 4rem;
+    line-height: 4rem;
+    color: #e2b714;
+}
+
+#chart {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 60vh;
+}

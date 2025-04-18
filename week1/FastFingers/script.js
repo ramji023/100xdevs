@@ -135,3 +135,72 @@ function startTimer(time) {
 }
 
 
+
+
+// build the chart
+anychart.onDocumentReady(function () {
+
+    // add data
+    var data = [
+        ["2003", 1, 0, 0],
+        ["2004", 4, 0, 0],
+        ["2005", 6, 0, 0],
+        ["2006", 9, 1, 0],
+        ["2007", 12, 2, 0],
+        ["2008", 13, 5, 1],
+        ["2009", 15, 6, 1],
+        ["2010", 16, 9, 1],
+        ["2011", 16, 10, 4],
+        ["2012", 17, 11, 5],
+        ["2013", 17, 13, 6],
+        ["2014", 17, 14, 7],
+        ["2015", 17, 14, 10],
+        ["2016", 17, 14, 12],
+        ["2017", 19, 16, 12],
+        ["2018", 20, 17, 14],
+        ["2019", 20, 19, 16],
+        ["2020", 20, 20, 17],
+        ["2021", 20, 20, 20],
+
+    ];
+
+    // create a data set
+    var dataSet = anychart.data.set(data);
+
+    // map the data for all series
+    var firstSeriesData = dataSet.mapAs({ x: 0, value: 1 });
+    var secondSeriesData = dataSet.mapAs({ x: 0, value: 2 });
+
+    // create a line chart
+    var chart = anychart.line();
+
+    //design the axes (title,labels)
+    chart.yAxis().title("Word Per Minute");
+    chart.yAxis().title().fontColor("#646669");
+    chart.xAxis().title("Time (in seconds)");
+    chart.xAxis().title().fontColor("#646669");
+    chart.xAxis().labels().fontColor("#646669");
+    chart.yAxis().labels().fontColor("#646669");
+
+    // create the series and name them
+    var firstSeries = chart.line(firstSeriesData);
+    firstSeries.name("WPM");
+    firstSeries.stroke("#e2b714");
+    var secondSeries = chart.line(secondSeriesData);
+    secondSeries.name("Accuracy");
+    secondSeries.stroke("#f58a42")
+
+
+    // add a legend
+    chart.legend().enabled(true);
+
+    // change the background color of graph
+    chart.background().fill("#323437");
+
+
+    // specify where to display the chart
+    chart.container("chart");
+
+    // draw the resulting chart
+    chart.draw();
+})

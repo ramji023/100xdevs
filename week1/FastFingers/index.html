@@ -7,6 +7,8 @@
     <link rel="icon" type="image/svg+xml" href="/public/logo.png" />
     <title>FastFingers – Test your typing speed</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style02.css">
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
 </head>
 
 <body>
@@ -16,29 +18,52 @@
             <h1>FastFingers</h1>
         </div>
 
-        <div id="parentBox">
-            <div id="box">
-                <div class="boxDiv">@ Punctuation</div>
-                <div class="boxDiv"># Number</div>
-                <div>|</div>
-                <div class="boxDiv">15</div>
-                <div class="boxDiv">30</div>
-                <div class="boxDiv">60</div>
-                <div class="boxDiv">120</div>
+        <div id="firstBox" style="display: none;">
+            <div id="parentBox">
+                <div id="box">
+                    <div class="boxDiv">@ Punctuation</div>
+                    <div class="boxDiv"># Number</div>
+                    <div>|</div>
+                    <div class="boxDiv">15</div>
+                    <div class="boxDiv">30</div>
+                    <div class="boxDiv">60</div>
+                    <div class="boxDiv">120</div>
+                </div>
+            </div>
+            <div id="contentBox">
+                <div class="timer">
+                    15
+                </div>
+                <p></p>
             </div>
         </div>
 
-        <div id="contentBox">
-            <div class="timer">
-               15
+        <div id="secondBox">
+            <div id="result">
+                <div id="wpm">
+                    <div class="textStyle">wpm</div>
+                    <div class="numberStyle">30</div>
+                </div>
+                <div id="accuracy">
+                    <div class="textStyle">accuracy</div>
+                    <div class="numberStyle">90%</div>
+                </div>
             </div>
-            <p></p>
+
+
+            <div id="chart">
+                
+            </div>
         </div>
     </div>
-
-    <div id="second">
-
     </div>
+
+
+    <!-- <div id="secondDiv">
+        <h1>welcome to second parts</h1>
+    </div> -->
+
+
     <script src="script.js" type="module"></script>
 </body>
 
