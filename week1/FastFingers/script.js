@@ -28,6 +28,10 @@ reminder that language is alive constantly evolving and adapting to the needs of
 this paragraph may seem chaotic and unstructured there is a certain rhythm and harmony to it that makes it feel
 natural and organic like a conversation that never really ends`
 
+const secondEl = document.getElementById("second")
+secondEl.style.display = "none";
+
+
 let rightKeyCount = 0;
 let totalKeyCount = 0;
 let dataset = [];
@@ -137,7 +141,7 @@ function startTimer(time) {
     let elapsedTime = 1
     const timerID = setInterval(() => {
         if (time > 0) {
-            console.log(`time remaining : ${elapsedTime}`)
+            // console.log(`time remaining : ${elapsedTime}`)
             const newArray = []
             newArray.push(String(elapsedTime))
             const wpm = (totalKeyCount / 5) * 60
@@ -145,7 +149,7 @@ function startTimer(time) {
             const accuracy = Math.ceil((rightKeyCount / totalKeyCount) * 100)
             newArray.push(accuracy);
             dataset.push(newArray);
-            console.log(`${elapsedTime} - ${newArray}`) // print elapsed time with newArray
+            // console.log(`${elapsedTime} - ${newArray}`) // print elapsed time with newArray
 
             time = time - 1;
             elapsedTime = elapsedTime + 1
@@ -155,87 +159,85 @@ function startTimer(time) {
         } else {
             console.log("timer is stopped")
             clearInterval(timerID);
+            secondEl.style.display = "block";
+            const firstBoxElement = document.getElementById("firstBox");
+            firstBoxElement.style.display = "none";
+            updateResult();
+            buildChart(dataset)
         }
     }, 1000)
 }
 
 function calculateWpm(totalKey, totalSeconds) {
-    return (totalKey * 60) / (5 * totalSeconds)
+    return Math.ceil((totalKey * 60) / (5 * totalSeconds))
 }
 
 function calculateAccuracy(totalKey, rightKey) {
     return Math.ceil((rightKey / totalKey) * 100)
 }
 
+function updateResult() {
+    const wpmElement = document.getElementById("wpm").children[1]
+    // console.log(wpmElement)
+    wpmElement.innerText = calculateWpm(totalKeyTyed, dataset.length)
+    console.log(wpmElement)
+    const accElement = document.getElementById("accuracy").children[1]
+    accElement.innerText = `${calculateAccuracy(totalKeyTyed, totalRightKeyTyped)}%`
+    console.log(accElement);
+}
+
+
+
+
 
 
 // build the chart
-anychart.onDocumentReady(function () {
 
-    // add data
-    var data = [
-        ["2003", 1, 0, 0],
-        ["2004", 4, 0, 0],
-        ["2005", 6, 0, 0],
-        ["2006", 9, 1, 0],
-        ["2007", 12, 2, 0],
-        ["2008", 13, 5, 1],
-        ["2009", 15, 6, 1],
-        ["2010", 16, 9, 1],
-        ["2011", 16, 10, 4],
-        ["2012", 17, 11, 5],
-        ["2013", 17, 13, 6],
-        ["2014", 17, 14, 7],
-        ["2015", 17, 14, 10],
-        ["2016", 17, 14, 12],
-        ["2017", 19, 16, 12],
-        ["2018", 20, 17, 14],
-        ["2019", 20, 19, 16],
-        ["2020", 20, 20, 17],
-        ["2021", 20, 20, 20],
+function buildChart(dataset) {
+    anychart.onDocumentReady(function () {
+        var data = dataset;
+        // create a data set
+        var dataSet = anychart.data.set(data);
 
-    ];
+        // map the data for all series
+        var firstSeriesData = dataSet.mapAs({ x: 0, value: 1 });
+        var secondSeriesData = dataSet.mapAs({ x: 0, value: 2 });
 
-    // create a data set
-    var dataSet = anychart.data.set(data);
+        // create a line chart
+        var chart = anychart.line();
 
-    // map the data for all series
-    var firstSeriesData = dataSet.mapAs({ x: 0, value: 1 });
-    var secondSeriesData = dataSet.mapAs({ x: 0, value: 2 });
+        //design the axes (title,labels)
+        chart.yAxis().title("Word Per Minute");
+        chart.yAxis().title().fontColor("#646669");
+        chart.xAxis().title("Time (in seconds)");
+        chart.xAxis().title().fontColor("#646669");
+        chart.xAxis().labels().fontColor("#646669");
+        chart.yAxis().labels().fontColor("#646669");
 
-    // create a line chart
-    var chart = anychart.line();
-
-    //design the axes (title,labels)
-    chart.yAxis().title("Word Per Minute");
-    chart.yAxis().title().fontColor("#646669");
-    chart.xAxis().title("Time (in seconds)");
-    chart.xAxis().title().fontColor("#646669");
-    chart.xAxis().labels().fontColor("#646669");
-    chart.yAxis().labels().fontColor("#646669");
-
-    // create the series and name them
-    var firstSeries = chart.line(firstSeriesData);
-    firstSeries.name("WPM");
-    firstSeries.stroke({ color: "#e2b714", thickness: 3 });
-    var secondSeries = chart.line(secondSeriesData);
-    secondSeries.name("Accuracy");
-    secondSeries.stroke({ color: "#f58a42", thickness: 3 })
+        // create the series and name them
+        var firstSeries = chart.line(firstSeriesData);
+        firstSeries.name("WPM");
+        firstSeries.stroke({ color: "#e2b714", thickness: 2 });
+        var secondSeries = chart.line(secondSeriesData);
+        secondSeries.name("Accuracy");
+        secondSeries.stroke({ color: "#f58a42", thickness: 2 })
 
 
-    // add a legend
-    chart.legend().enabled(true);
+        // add a legend
+        chart.legend().enabled(true);
 
-    // change the background color of graph
-    chart.background().fill("#323437");
+        // change the background color of graph
+        chart.background().fill("#323437");
 
 
-    // specify where to display the chart
-    chart.container("chart");
+        // specify where to display the chart
+        chart.container("chart");
 
-    // draw the resulting chart
-    chart.draw();
-})
+        // draw the resulting chart
+        chart.draw();
+    })
+
+}
 
 
 
