@@ -28,7 +28,12 @@ reminder that language is alive constantly evolving and adapting to the needs of
 this paragraph may seem chaotic and unstructured there is a certain rhythm and harmony to it that makes it feel
 natural and organic like a conversation that never really ends`
 
+let rightKeyCount = 0;
+let totalKeyCount = 0;
+let dataset = [];
 
+let totalRightKeyTyped = 0;
+let totalKeyTyed = 0;
 const htmlParagraph = document.querySelector('p')  // store the htmlparagraphelement instance
 
 // create span elements for all the character which is present in para string
@@ -64,9 +69,7 @@ const appendSpanElement = (textContent, index) => {
     spanIndex = startIndex;
 }
 appendSpanElement(textContent, spanIndex)
-// textContent.forEach((element) => {
-//     htmlParagraph.appendChild(element);
-// })
+
 
 
 
@@ -77,16 +80,25 @@ document.addEventListener("keydown", (e) => {
 })
 // check wheather user key is equal to text content text and update color
 let index = 0;
+let hasTimerRun = false;
 const checkKey = (key) => {
-    console.log(key);
+    // console.log(key);
     if (/^[a-zA-Z0-9 ]$/.test(key)) {
+        totalKeyCount = totalKeyCount + 1;
+        totalKeyTyed += 1;
         const timer = document.querySelector('.timer').innerText;
-        startTimer(Number(timer))
+        if (!hasTimerRun) {
+            startTimer(Number(timer))
+            hasTimerRun = true;
+        }
         let result = (key === textContent[index].innerText) ? true : false;
         if (result && key !== ' ') {
             textContent[index].style.color = 'white'
+            rightKeyCount = rightKeyCount + 1
+            totalRightKeyTyped += 1;
         } else if (!result && textContent[index].innerText !== " ") {
             textContent[index].style.color = 'red'
+            // wrongKeyCount = wrongKeyCount + 1
         }
         moveCursor();
 
@@ -115,18 +127,31 @@ selectTimerButton.forEach((node) => {
 })
 function setTimer(timer) {
     if (Number(timer)) {
-        console.log("timer is : ", timer)
+        // console.log("timer is : ", timer)
         document.querySelector('.timer').innerText = timer
     }
 }
 
 // start the clock
 function startTimer(time) {
+    let elapsedTime = 1
     const timerID = setInterval(() => {
         if (time > 0) {
-            console.log(time);
+            console.log(`time remaining : ${elapsedTime}`)
+            const newArray = []
+            newArray.push(String(elapsedTime))
+            const wpm = (totalKeyCount / 5) * 60
+            newArray.push(wpm)
+            const accuracy = Math.ceil((rightKeyCount / totalKeyCount) * 100)
+            newArray.push(accuracy);
+            dataset.push(newArray);
+            console.log(`${elapsedTime} - ${newArray}`) // print elapsed time with newArray
+
             time = time - 1;
+            elapsedTime = elapsedTime + 1
             document.querySelector('.timer').innerText = time
+            rightKeyCount = 0;
+            totalKeyCount = 0;
         } else {
             console.log("timer is stopped")
             clearInterval(timerID);
@@ -134,6 +159,13 @@ function startTimer(time) {
     }, 1000)
 }
 
+function calculateWpm(totalKey, totalSeconds) {
+    return (totalKey * 60) / (5 * totalSeconds)
+}
+
+function calculateAccuracy(totalKey, rightKey) {
+    return Math.ceil((rightKey / totalKey) * 100)
+}
 
 
 
@@ -185,10 +217,10 @@ anychart.onDocumentReady(function () {
     // create the series and name them
     var firstSeries = chart.line(firstSeriesData);
     firstSeries.name("WPM");
-    firstSeries.stroke("#e2b714");
+    firstSeries.stroke({ color: "#e2b714", thickness: 3 });
     var secondSeries = chart.line(secondSeriesData);
     secondSeries.name("Accuracy");
-    secondSeries.stroke("#f58a42")
+    secondSeries.stroke({ color: "#f58a42", thickness: 3 })
 
 
     // add a legend
@@ -204,3 +236,7 @@ anychart.onDocumentReady(function () {
     // draw the resulting chart
     chart.draw();
 })
+
+
+
+
