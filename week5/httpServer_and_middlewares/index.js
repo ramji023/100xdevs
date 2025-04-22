@@ -1,13 +1,10 @@
 const express = require("express")
-
 const app = express()
 
 
-app.get('/test', (req, res) => {
-    res.send("here is my test route")
-})
 
 
+/*
 // here we will practice params and query parameters
 
 // addition
@@ -46,6 +43,6 @@ app.get("/divide", function (req, res) {
         return res.send(Number(a) / Number(b))
     }
 })
-
+* */
 
 app.listen(3000);
