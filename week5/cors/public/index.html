@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <h1> frontend Browser</h1>
+
+    <input type="number" id="a" placeholder="first value">
+    <input type="number" id="b" placeholder="second value">
+    <button onclick="sendRequestToBackendServer()">calculate sum</button>
+    <p id="result"></p>
+    <script>
+        async function sendRequestToBackendServer() {
+            const response = await axios.post("http://localhost:3002/sum",
+                { "a": document.getElementById("a").value, "b": document.getElementById("b").value })
+            console.log(response);
+            if (response.data) {
+                document.getElementById("result").innerText = response.data.ans
+            }
+        }
+    </script>
+
+</body>
+
+</html>
