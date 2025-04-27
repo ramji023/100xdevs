@@ -1,10 +1,12 @@
 const express = require("express")
 const jwt = require("jsonwebtoken")
+// const cors = require("cors")
 const app = express()
+// app.use(cors()); 
 const SECRET_KEY = "mynameisramjimishra"
 const users = []
 app.get("/", (req, res) => {
-    res.json({ msg: "server is running successfully" })
+    res.sendFile(__dirname + "/public/index.html")
 })
 
 app.use(express.json()) // buit in middleware to parse the body data into json data
