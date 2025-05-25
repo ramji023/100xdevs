@@ -6,7 +6,7 @@ const { UserModel, TodoModel } = require("./db")
 app.use(express.json())
 const jwt = require("jsonwebtoken")
 const { auth, SECRET_KEY } = require("./auth.middleware")
-
+const { z } = require("zod");
 
 
 mongoose.connect("mongodb+srv://ram_ji_mishra_admin:KhA6gs4m5vDvJ35i@cluster0.eplhdws.mongodb.net/todo-app-database");
@@ -16,6 +16,16 @@ app.get("/", (req, res) => {
 })
 
 app.post("/signup", async (req, res) => {
+    const requestBodyObject = z.object({
+        email: z.string().email(),
+        password: z.string(),
+        name: z.string(),
+    })
+    const parsedBodyObject = requestBodyObject.safeParse(req.body);
+    if (!parsedBodyObject.success) {
+        console.log(parsedBodyObject)
+        return res.json({ msg: "Incorrect input data" })
+    }
     const { email, password, name } = req.body;
     const hashedPassword = await bcrypt.hash(password, 5);
     console.log("hashed password is  : ", hashedPassword)
